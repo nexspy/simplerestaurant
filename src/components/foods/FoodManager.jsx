@@ -8,7 +8,7 @@ import FoodList from './FoodList.jsx';
 const FoodManager = () => {
 
     const [foods, setFoods] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     const getFoods = () => {
         const url = URLS.base_url + URLS.food.base;
