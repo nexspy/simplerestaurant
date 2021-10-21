@@ -44,6 +44,7 @@ const FoodManager = () => {
         setPerpage(default_perpage);
     }, [])
 
+    
     useEffect(() => {
         getFoods();
     }, [ page ]);
