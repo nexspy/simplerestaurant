@@ -16,7 +16,7 @@ const FoodManager = () => {
         axios.get(url)
             .then((res) => {
                 setFoods(res.data.foods);
-                setLoading(false);
+                // setLoading(false);
             })
             .catch((error) => {
                 setFoods([]);
