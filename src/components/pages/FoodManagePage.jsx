@@ -8,9 +8,15 @@ const FoodManagePage = () => {
             <div className="container">
                 <h1>Manage Food Items</h1>
 
-                <Link to={`/`}>
-                    Back
-                </Link>
+                <nav>
+                    <Link to={`/`}>
+                        Back
+                    </Link>
+
+                    <Link to={`/food/create`}>
+                        Add Food
+                    </Link>
+                </nav>
 
                 <FoodManager />
             </div>

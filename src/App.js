@@ -7,6 +7,8 @@ import FoodManagePage from './components/pages/FoodManagePage';
 import MenuManagePage from './components/pages/MenuManagePage';
 import OrderManagePage from './components/pages/OrderManagePage';
 
+import FoodForm from './components/foods/forms/FoodForm';
+
 function App() {
   return (
     <Router>
@@ -17,6 +19,7 @@ function App() {
 
       {/* Food paths */}
       <Route path="/food/manage" exact component={FoodManagePage} />
+      <Route path="/food/create" exact component={FoodForm} />
 
       {/* Order paths */}
       <Route path="/order/manage" component={OrderManagePage} />
