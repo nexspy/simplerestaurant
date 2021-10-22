@@ -3,11 +3,13 @@ import axios from 'axios';
 
 import URLS from '../../api/urls.js';
 
+import FoodSearch from './FoodSearch';
 import FoodList from './FoodList.jsx';
 
 const FoodManager = () => {
     const default_perpage = 5;
     const [foods, setFoods] = useState([]);
+    const [search, setSearch] = useState('');
     const [page, setPage] = useState(0);
     const [perpage, setPerpage] = useState(default_perpage);
     const [loading, setLoading] = useState(true);
@@ -26,8 +28,12 @@ const FoodManager = () => {
         setPage(newPage);
     }
 
+    const handleSearchChange = (search) => {
+        setSearch(search);
+    }
+
     const getFoods = () => {
-        const url = URLS.base_url + URLS.food.base + '?perpage=' + perpage + '&page=' + page;
+        const url = URLS.base_url + URLS.food.base + '?perpage=' + perpage + '&page=' + page + '&search=' + search;
         
         axios.get(url)
             .then((res) => {
@@ -47,11 +53,13 @@ const FoodManager = () => {
     
     useEffect(() => {
         getFoods();
-    }, [ page ]);
+    }, [ page, search ]);
 
     return (
         <div>
             <h2>Food list</h2>
+
+            <FoodSearch handleSearchChange={handleSearchChange} />
 
             {loading ? (
                 <p>loading...</p>
