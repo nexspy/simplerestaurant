@@ -5,6 +5,11 @@ import './App.scss';
 import HomePage from './components/pages/HomePage';
 import FoodManagePage from './components/pages/FoodManagePage';
 import MenuManagePage from './components/pages/MenuManagePage';
+
+import MenuForm from './components/menu/forms/MenuForm';
+import MenuView from './components/menu/menu/MenuView';
+import MenuEditForm from './components/menu/forms/MenuEditForm';
+
 import OrderManagePage from './components/pages/OrderManagePage';
 
 import FoodForm from './components/foods/forms/FoodForm';
@@ -16,6 +21,9 @@ function App() {
 
       {/* Menu path */}
       <Route path="/menu/manage" component={MenuManagePage} />
+      <Route path="/menu/create" component={MenuForm} />
+      <Route path="/menu/:menuId/view" component={MenuView} />
+      <Route path="/menu/:menuId/edit" component={MenuEditForm} />
 
       {/* Food paths */}
       <Route path="/food/manage" exact component={FoodManagePage} />

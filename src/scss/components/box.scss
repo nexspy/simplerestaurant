@@ -1,0 +1,12 @@
+.boxes {
+    display: flex;
+    column-gap: 10px;
+    justify-content: flex-start;
+
+    .box {
+        cursor: pointer;
+        border: 1px solid #CCCCCC;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const OrderManagePage = () => {
     return (
-        <div class="page">
+        <div className="page">
             <div className="container">
                 <h1>Manage Order Items</h1>
 

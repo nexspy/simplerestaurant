@@ -3,3 +3,24 @@ input {
     padding: 10px 20px;
     box-sizing: border-box;
 }
+
+.react-tags__search {
+    input {
+        box-sizing: content-box;
+    }
+}
+
+.react-tags__suggestions {
+    ul {
+        margin: 0px;
+        padding-left: 0px;
+        li {
+            cursor: pointer;
+            padding: 10px 0px 10px 10px;
+            list-style: none;
+            &:hover {
+                background-color: #CCCCCC;
+            }
+        }
+    }
+}

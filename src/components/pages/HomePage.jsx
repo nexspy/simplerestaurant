@@ -16,9 +16,13 @@ const HomePage = () => {
                         Food Items
                     </Link>
                     <Link to={`/order/manage`}>
-                        Orders
+                        Order History
                     </Link>
                 </nav>
+
+                <div>
+                    <h2>Current Orders</h2>
+                </div>
 
             </div>
 
