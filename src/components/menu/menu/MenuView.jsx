@@ -58,6 +58,7 @@ const FoodItemCard = ({ data }) => {
     return (
         <div className="food-item">
             <h3>{data.name}</h3>
+            <p>Rs. {data.price}</p>
         </div>
     )
 }

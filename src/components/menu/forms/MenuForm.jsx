@@ -8,7 +8,7 @@ import URLS from '../../../api/urls';
 const MenuForm = () => {
     let history = useHistory();
     
-    const default_perpage = 5;
+    const default_perpage = 500;
     const [name, setName] = useState('');
     const [foodList, setFoodList] = useState([]);
     const [foodSuggestion, setFoodSuggestion] = useState([]);
@@ -138,7 +138,7 @@ const MenuForm = () => {
                 </div>
 
                 <div className="form-item">
-                    <label htmlFor="">Attributes</label>
+                    <label htmlFor="">Foods</label>
                     <ReactTags
                         placeholderText="Add Attribute..."
                         ref={reactTags}
