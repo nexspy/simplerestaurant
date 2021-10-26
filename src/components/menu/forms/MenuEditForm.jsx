@@ -104,7 +104,7 @@ const MenuEditForm = (data) => {
             .then((res) => {
                 setMenu(res.data.menu);
                 setName(res.data.menu.name);
-                setStatus(res.data.status);
+                setStatus(res.data.menu.status);
                 var temp = [];
                 for (var i = 0; i < res.data.menu.foods.length; i++) {
                     temp.push({
