@@ -9,6 +9,7 @@ import MenuManagePage from './components/pages/MenuManagePage';
 import MenuForm from './components/menu/forms/MenuForm';
 import MenuView from './components/menu/menu/MenuView';
 import MenuEditForm from './components/menu/forms/MenuEditForm';
+import MenuDeleteForm from './components/menu/forms/MenuDeleteForm';
 
 import OrderManagePage from './components/pages/OrderManagePage';
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/menu/create" component={MenuForm} />
       <Route path="/menu/:menuId/view" component={MenuView} />
       <Route path="/menu/:menuId/edit" component={MenuEditForm} />
+      <Route path="/menu/:menuId/delete" component={MenuDeleteForm} />
 
       {/* Food paths */}
       <Route path="/food/manage" exact component={FoodManagePage} />

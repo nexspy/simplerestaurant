@@ -35,6 +35,9 @@ const MenuView = (data) => {
                 <Link to={`/menu/${menuId}/edit`}>
                     Edit
                 </Link>
+                <Link to={`/menu/${menuId}/delete`}>
+                    Delete
+                </Link>
             </nav>
 
             <FoodItemList data={menu.foods} />
