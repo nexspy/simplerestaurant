@@ -12,6 +12,7 @@ import MenuEditForm from './components/menu/forms/MenuEditForm';
 import MenuDeleteForm from './components/menu/forms/MenuDeleteForm';
 
 import OrderManagePage from './components/pages/OrderManagePage';
+import OrderForm from './components/orders/forms/OrderForm';
 
 import FoodForm from './components/foods/forms/FoodForm';
 
@@ -33,6 +34,7 @@ function App() {
 
       {/* Order paths */}
       <Route path="/order/manage" component={OrderManagePage} />
+      <Route path="/order/create" exact component={OrderForm} />
 
     </Router>
   );

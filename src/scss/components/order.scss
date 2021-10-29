@@ -1,0 +1,66 @@
+.order-list {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 10px;
+
+    .order-item {
+        border: 1px solid #ECECEC;
+        border-radius: 6px;
+        box-shadow: 4px 4px 6px #CCCCCC;
+        box-sizing: borderbottom;
+        padding: 10px;
+        margin-bottom: 10px;
+
+        .price-qty {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .order-status {
+            display: inline;
+            border: 1px solid green;
+            border-radius: 6px;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            background-color: rgb(173, 255, 178);
+
+            &.status-complete {
+                border-color: red;
+                background-color: #ffe3e3;
+            }
+        }
+
+        .order-total {
+            border-top: 1px solid #CCCCCC;
+            padding-top: 10px; 
+            font-weight: bold;
+        }
+    }
+}
+
+.food-row {
+    position: relative;
+
+    .btn-close {
+        position: absolute;
+        top: 10px;
+        right: 0px;
+        cursor: pointer;
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+
+        .totaling {
+            display: flex;
+            justify-content: flex-start;
+            column-gap: 20px;
+        }
+    }
+}
