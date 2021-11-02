@@ -1,6 +1,6 @@
 const URLS = {
-    // 'base_url': 'http://localhost:5000',
-    'base_url': 'https://nirmal-restaurantapp.herokuapp.com',
+    'base_url': 'http://localhost:5000',
+    // 'base_url': 'https://nirmal-restaurantapp.herokuapp.com',
     'api_version': '/v1/api',
     'menu': {
         'base': '/menus',

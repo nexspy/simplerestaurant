@@ -5,9 +5,11 @@ import ReactTags from 'react-tag-autocomplete';
 
 import URLS from '../../../api/urls';
 
-const OrderForm = () => {
+const OrderForm = (data) => {
     let history = useHistory();
     const default_perpage = 500;
+    const orderId = data.match.params.orderId;
+    const [order, setOrder] = useState(false);
     const [foodList, setFoodList] = useState([]);
     const [foodSuggestion, setFoodSuggestion] = useState([]);
     const [status, setStatus] = useState(true);
@@ -85,6 +87,20 @@ const OrderForm = () => {
         setFoodRowsData(temp);
     }
 
+    const getOrder = () => {
+        const url = URLS.base_url;
+
+        axios.get(url + '/orders/' + orderId + '/detail')
+            .then((res) => {
+                if (res.data.success) {
+                    setOrder(res.data.order);
+                }
+            })
+            .catch((error) => {
+                // 
+            });
+    }
+
     const getFoods = () => {
         const url = URLS.base_url + URLS.food.base + '?perpage=' + perpage + '&page=' + page + '&search=' + search;
         
@@ -134,7 +150,18 @@ const OrderForm = () => {
 
     useEffect(() => {
         getFoods();
-    }, [])
+        if (typeof orderId !== 'undefined') {
+            getOrder();
+        }
+    }, []);
+
+    useEffect(() => {
+        setTable(order.table);
+        setStatus(order.status);
+        if (typeof order.foods !== 'undefined') {
+            setFoodRowsData(order.foods)
+        }
+    }, [ order ])
 
     return (
         <div className="container">

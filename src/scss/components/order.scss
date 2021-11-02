@@ -4,6 +4,12 @@
     flex-wrap: wrap;
     column-gap: 10px;
 
+    .order-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
     .order-item {
         border: 1px solid #ECECEC;
         border-radius: 6px;

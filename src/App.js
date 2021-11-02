@@ -35,6 +35,7 @@ function App() {
       {/* Order paths */}
       <Route path="/order/manage" component={OrderManagePage} />
       <Route path="/order/create" exact component={OrderForm} />
+      <Route path="/order/:orderId/edit" exact component={OrderForm} />
 
     </Router>
   );
