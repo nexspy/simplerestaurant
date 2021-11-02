@@ -1,6 +1,7 @@
 .order-list {
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
     column-gap: 10px;
 
     .order-item {
@@ -51,6 +52,8 @@
         top: 10px;
         right: 0px;
         cursor: pointer;
+        border: 1px solid red;
+        padding: 5px 10px;
     }
 
     .content {

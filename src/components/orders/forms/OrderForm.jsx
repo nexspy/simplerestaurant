@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import ReactTags from 'react-tag-autocomplete';
 
 import URLS from '../../../api/urls';
 
 const OrderForm = () => {
-
+    let history = useHistory();
     const default_perpage = 500;
     const [foodList, setFoodList] = useState([]);
     const [foodSuggestion, setFoodSuggestion] = useState([]);
@@ -16,25 +16,7 @@ const OrderForm = () => {
     const [perpage, setPerpage] = useState(default_perpage);
     const [table, setTable] = useState('');
     const reactTags = React.createRef();
-
-    const tempFoodRows = [
-        {
-            'id': '6174cc3e8181a404f17915f9',
-            'name': 'Veg Momo',
-            'quantity': 2,
-            'pricePerItem': 100,
-            'total': 200
-        },
-        {
-            'id': '6174d6e58181a404f1791601',
-            'name': 'Chicken Momo',
-            'quantity': 1,
-            'pricePerItem': 130,
-            'total': 130
-        }
-    ];
-
-    const [foodRowsData, setFoodRowsData] = useState(tempFoodRows);
+    const [foodRowsData, setFoodRowsData] = useState([]);
     
     const handleTable = (e) => {
         setTable(e.target.value);
@@ -46,21 +28,49 @@ const OrderForm = () => {
 
     const addFood = (data) => {
         var food = false;
+        // loop through all foods fetched from server
         for (var i=0; i<foodList.length; i++) {
             var item = foodList[i];
-            if (item._id == data.id) {
-                food = {
-                    'id': item._id,
-                    'name': item.name,
-                    'quantity': data.quantity,
-                    'pricePerItem': item.price,
-                    'total': data.quantity * item.price
+
+            // check if food selected is already in the foodList
+            var foodAlreadyInList = false;
+            var foodInRow = false;
+            for (var j=0; j<foodRowsData.length; j++) {
+                if (foodRowsData[j].id == data.id) {
+                    foodAlreadyInList = true;
+                    foodInRow = foodRowsData[j];
+                }
+            }
+
+            // increate the quantity if food already in the list
+            if (foodAlreadyInList && foodInRow) {
+                var updatedQuantity = foodInRow.quantity + data.quantity;
+                var temp = [...foodRowsData];
+                for (var k=0; k<temp.length; k++) {
+                    if (temp[k].id == foodInRow.id) {
+                        temp[k].quantity = updatedQuantity;
+                    }
+                }
+                setFoodRowsData(temp);
+                break;
+            } else {
+                // add the food to list
+                if (item._id == data.id) {
+                    food = {
+                        'id': item._id,
+                        'name': item.name,
+                        'quantity': data.quantity,
+                        'pricePerItem': item.price,
+                        'total': data.quantity * item.price
+                    }
+                }
+
+                if (food) {
+                    setFoodRowsData([...foodRowsData, food]);
                 }
             }
         }
-        if (food) {
-            setFoodRowsData([...foodRowsData, food]);
-        }
+        
     }
 
     const removeFood = (data) => {
@@ -98,6 +108,22 @@ const OrderForm = () => {
 
     const save = () => {
         // save code
+        var data = {
+            "foods": foodRowsData,
+            "table": table,
+            "status": status,
+        }
+
+        const url = URLS.base_url + URLS.order.create;
+
+        axios.post(url, data)
+            .then((res) => {
+                // redirect
+                history.push('/order/manage');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     const handleSubmit = (e) => {
@@ -128,7 +154,7 @@ const OrderForm = () => {
 
                 <div className="form-item">
                     <label htmlFor="cb-status">Status</label>
-                    <input type="checkbox" id="cb-status" value={status} onChange={handleStatus}/>
+                    <input type="checkbox" id="cb-status" checked={status} onChange={handleStatus}/>
                 </div>
 
                 <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} />
@@ -156,10 +182,15 @@ const FoodSelector = ({ data, suggestion, addFood, removeFood }) => {
 
     const handleQuantity = (e) => {
         var value = parseInt(e.target.value);
+        console.log(value)
+        if (value < 1 || isNaN(value)) {
+            value = 1;
+        }
         setQuantity(value);
     }
 
     const handleAddFood = (e) => {
+        e.preventDefault();
         // 
         var food = {
             'id': currentFood,
@@ -217,7 +248,7 @@ const FoodRow = ({ data, suggestion, removeFood }) => {
     return (
         <div className="food-row">
             <h3>{data.name}</h3>
-            <div className="btn-close" onClick={handleClose}>Close</div>
+            <div className="btn-close" onClick={handleClose}>Remove</div>
             <div className="content">
                 <div className="price">
                     <p>Price: Rs. {data.pricePerItem}</p>
