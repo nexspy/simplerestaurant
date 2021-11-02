@@ -7,6 +7,7 @@ import OrderList from './OrderList';
 
 const OrderManager = () => {
 
+    const [isLoading, setIsLoading] = useState(true);
     const [orders, setOrders] = useState([]);
 
     const getOrders = () => {
@@ -15,6 +16,7 @@ const OrderManager = () => {
         axios.get(url)
             .then((res) => {
                 setOrders(res.data.orders);
+                setIsLoading(false);
             });
     }
 
@@ -26,7 +28,12 @@ const OrderManager = () => {
         <div className="order-manager-wrapper">
             <h2>Order Manager</h2>
 
-            <OrderList data={orders} />
+            {isLoading ? (
+                <div>loading...</div>
+            ) : (
+                <OrderList data={orders} />
+            )}
+            
         </div>
     )
 }

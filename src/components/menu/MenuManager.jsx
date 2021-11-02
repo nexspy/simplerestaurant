@@ -5,6 +5,8 @@ import MenuList from './MenuList';
 import URLS from '../../api/urls';
 
 const MenuManager = () => {
+
+    const [isLoading, setIsLoading] = useState(true);
     const [menus, setMenus] = useState([]);
 
     const getMenu = () => {
@@ -12,6 +14,7 @@ const MenuManager = () => {
         axios.get(url)
             .then((res) => {
                 setMenus(res.data.menus);
+                setIsLoading(false);
             })
             .catch((error) => {
             });
@@ -25,7 +28,11 @@ const MenuManager = () => {
         <div className="menumanager">
             <h2>Menus list</h2>
 
-            <MenuList data={menus} />
+            {isLoading ? (
+                <div>loading..</div>
+            ) : (
+                <MenuList data={menus} />
+            )}
         </div>
     )
 }
