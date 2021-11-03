@@ -28,6 +28,46 @@ const OrderForm = (data) => {
         setStatus(e.target.checked);
     }
 
+    const increaseQuantity = (data) => {
+        updateFoodItemQuantity(data, 1);
+    }
+
+    const decreaseQuantity = (data) => {
+        updateFoodItemQuantity(data, -1);
+    }
+
+    const updateFoodItemQuantity = (data, value) => {
+        // loop through all foods fetched from server
+        for (var i=0; i<foodList.length; i++) {
+            var item = foodList[i];
+
+            // check if food selected is already in the foodList
+            var foodAlreadyInList = false;
+            var foodInRow = false;
+            for (var j=0; j<foodRowsData.length; j++) {
+                if (foodRowsData[j].id == data.id) {
+                    foodAlreadyInList = true;
+                    foodInRow = foodRowsData[j];
+                }
+            }
+
+            // increate the quantity if food already in the list
+            if (foodAlreadyInList && foodInRow) {
+                var updatedQuantity = foodInRow.quantity + value;
+                if (updatedQuantity > 0) {
+                    var temp = [...foodRowsData];
+                    for (var k=0; k<temp.length; k++) {
+                        if (temp[k].id == foodInRow.id) {
+                            temp[k].quantity = updatedQuantity;
+                        }
+                    }
+                    setFoodRowsData(temp);
+                }
+                break;
+            }
+        }
+    }
+
     const addFood = (data) => {
         var food = false;
         // loop through all foods fetched from server
@@ -184,7 +224,7 @@ const OrderForm = (data) => {
                     <input type="checkbox" id="cb-status" checked={status} onChange={handleStatus}/>
                 </div>
 
-                <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} />
+                <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>
 
                 <button onClick={handleSubmit}>Save</button>
             </form>
@@ -195,7 +235,7 @@ const OrderForm = (data) => {
 /**
  * Component : allow user to add food to this order with quantity
  */
-const FoodSelector = ({ data, suggestion, addFood, removeFood }) => {
+const FoodSelector = ({ data, suggestion, addFood, removeFood, increaseQuantity, decreaseQuantity }) => {
     const [currentFood, setCurrentFood] = useState('');
     const [quantity, setQuantity] = useState(1);
 
@@ -206,6 +246,8 @@ const FoodSelector = ({ data, suggestion, addFood, removeFood }) => {
     const handleFoodChange = (e) => {
         setCurrentFood(e.target.value);
     }
+
+    
 
     const handleQuantity = (e) => {
         var value = parseInt(e.target.value);
@@ -237,15 +279,15 @@ const FoodSelector = ({ data, suggestion, addFood, removeFood }) => {
                 <button onClick={handleAddFood}>Add Food</button>
             </div>
             <div className="form-item">
-                <FoodRows data={data} suggestion={suggestion} removeFood={removeFood} />
+                <FoodRows data={data} suggestion={suggestion} removeFood={removeFood} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} />
             </div>
         </React.Fragment>
     )
 }
 
-const FoodRows = ({ data, suggestion, removeFood }) => {
+const FoodRows = ({ data, suggestion, removeFood, increaseQuantity, decreaseQuantity}) => {
     const rows = data.map((item, key) => {
-        return <FoodRow data={item} suggestion={suggestion} removeFood={removeFood} key={key} />
+        return <FoodRow data={item} suggestion={suggestion} removeFood={removeFood} key={key} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} />
     });
 
     return (
@@ -261,7 +303,7 @@ const FoodRows = ({ data, suggestion, removeFood }) => {
     )
 };
 
-const FoodRow = ({ data, suggestion, removeFood }) => {
+const FoodRow = ({ data, suggestion, removeFood, increaseQuantity, decreaseQuantity }) => {
     const options = suggestion.map((item, key) => {
         return <option value={item.value} key={key}>{item.name}</option>
     });
@@ -271,11 +313,23 @@ const FoodRow = ({ data, suggestion, removeFood }) => {
 
         removeFood(data);
     };
+
+    const handleIncrease = () => {
+        increaseQuantity(data);
+    }
+
+    const handleDecrease = () => {
+        decreaseQuantity(data);
+    }
     
     return (
         <div className="food-row">
             <h3>{data.name}</h3>
             <div className="btn-close" onClick={handleClose}>Remove</div>
+            <div className="actions">
+                <div onClick={handleIncrease}>Increase</div>
+                <div onClick={handleDecrease}>Decrease</div>
+            </div>
             <div className="content">
                 <div className="price">
                     <p>Price: Rs. {data.pricePerItem}</p>
