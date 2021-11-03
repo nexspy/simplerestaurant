@@ -3,6 +3,16 @@ a {
     text-decoration: none;
 }
 
+h1 {
+    &.title {
+        margin: 20px 0px 5px;
+    }
+}
+.motto {
+    margin-bottom: 20px;
+    color: $disabled-color;
+}
+
 h3 {
     span {
         color: grey;

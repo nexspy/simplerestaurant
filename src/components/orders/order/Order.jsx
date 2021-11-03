@@ -26,7 +26,6 @@ const Order = ({ data }) => {
             <div className="order-actions" onClick={gotoEditForm}>
                 <div className="icon-edit"></div>
             </div>
-            <p>Order : {data._id}</p>
             <h3>{orderDate}</h3>
             {foodList}
             <p className="order-total">Total: Rs. {total}</p>

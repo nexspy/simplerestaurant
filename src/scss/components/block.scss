@@ -1,0 +1,27 @@
+.block {
+    background-color: $block-bg-color;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 10px 0px;
+    border-radius: 12px;
+
+    h2 {
+        margin: 4px 0px 10px;
+        color: $primary-color;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    a {
+        color: $primary-color;
+        background-color: $highlight-color;
+        padding: 10px 30px;
+        display: block;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+}

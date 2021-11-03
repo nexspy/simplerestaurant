@@ -6,7 +6,8 @@ const HomePage = () => {
         <div className="page">
             
             <div className="container">
-                <h1 className="title">Home</h1>
+                <h1 className="title">Ions Restro</h1>
+                <div className="motto">Easy restaurant management software</div>
 
                 <nav>
                     <Link to={`/menu/manage`}>
@@ -20,9 +21,14 @@ const HomePage = () => {
                     </Link>
                 </nav>
 
-                <div>
+                <div className="block">
                     <h2>Current Orders</h2>
+
+                    <div className="actions">
+                        <a href="#">View All</a>
+                    </div>
                 </div>
+                
 
             </div>
 
