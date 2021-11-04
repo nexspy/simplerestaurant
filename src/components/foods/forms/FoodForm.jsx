@@ -10,7 +10,7 @@ const FoodForm = () => {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [subCategory, setSubCategory] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(100);
     const [isVegeterian, setIsVegeterian] = useState(false);
     const [status, setStatus] = useState(true);
 
@@ -27,7 +27,11 @@ const FoodForm = () => {
     };
 
     const handlePrice = (e) => {
-        setPrice(e.target.value);
+        var value = e.target.value;
+        if (value < 1) {
+            value = 1;
+        }
+        setPrice(value);
     };
 
     const onStatusChanged = (e) => {
@@ -83,24 +87,28 @@ const FoodForm = () => {
 
             <form onSubmit={handleSubmit}>
                 <div className="form-item">
-                    <input type="text" placeholder="name" value={name} onChange={handleName} />
+                    <label htmlFor="txt-name">Name</label>
+                    <input id="txt-name" type="text" placeholder="name" value={name} onChange={handleName} />
                 </div>
                 <div className="form-item">
-                    <input type="text" placeholder="category" value={category} onChange={handleCategory} />
+                    <label htmlFor="txt-category">Category</label>
+                    <input id="txt-category" type="text" placeholder="category" value={category} onChange={handleCategory} />
                 </div>
                 <div className="form-item">
-                    <input type="text" placeholder="subcategory" value={subCategory} onChange={handleSubCategory} />
+                    <label htmlFor="txt-subcategory">Sub Category</label>
+                    <input id="txt-subcategory" type="text" placeholder="subcategory" value={subCategory} onChange={handleSubCategory} />
                 </div>
                 <div className="form-item">
-                    <input type="text" placeholder="price" value={price} onChange={handlePrice} />
+                    <label htmlFor="txt-price">Price</label>
+                    <input id="txt-price" type="number" placeholder="price" value={price} onChange={handlePrice} />
                 </div>
-                <div className="form-item">
-                    <input type="checkbox" id="cb-vegeterian" name="cb-vegeterian" checked={isVegeterian}  onChange={onVegeterianChange} />
+                <div className="form-item form-checkbox">
                     <label htmlFor="cb-vegeterian">Is Vegeterian</label>
+                    <input type="checkbox" id="cb-vegeterian" name="cb-vegeterian" checked={isVegeterian}  onChange={onVegeterianChange} />
                 </div>
-                <div className="form-item">
-                    <input type="checkbox" id="cb-status" name="cb-status" checked={status}  onChange={onStatusChanged} />
+                <div className="form-item form-checkbox">
                     <label htmlFor="cb-status">Status</label>
+                    <input type="checkbox" id="cb-status" name="cb-status" checked={status}  onChange={onStatusChanged} />
                 </div>
                 <div className="form-item">
                     <button className="" name="btn-create" onClick={handleSubmit}>Create Product</button>

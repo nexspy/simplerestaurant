@@ -1,0 +1,13 @@
+.menu-item {
+    border: 1px solid #CCCCCC;
+    border-radius: 6px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+
+    h3 {
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}

@@ -219,7 +219,7 @@ const OrderForm = (data) => {
                     <input type="text" id="txt-table" value={table} onChange={handleTable}/>
                 </div>
 
-                <div className="form-item">
+                <div className="form-item form-checkbox">
                     <label htmlFor="cb-status">Status</label>
                     <input type="checkbox" id="cb-status" checked={status} onChange={handleStatus}/>
                 </div>
@@ -247,8 +247,6 @@ const FoodSelector = ({ data, suggestion, addFood, removeFood, increaseQuantity,
         setCurrentFood(e.target.value);
     }
 
-    
-
     const handleQuantity = (e) => {
         var value = parseInt(e.target.value);
         console.log(value)
@@ -270,7 +268,7 @@ const FoodSelector = ({ data, suggestion, addFood, removeFood, increaseQuantity,
 
     return (
         <React.Fragment>
-            <div className="form-item">
+            <div className="form-item form-food-adder">
                 <select value={currentFood} onChange={handleFoodChange}>
                     <option value="">None</option>
                     {options}
@@ -293,7 +291,7 @@ const FoodRows = ({ data, suggestion, removeFood, increaseQuantity, decreaseQuan
     return (
         <div>
             {data.length ? (
-                <div>
+                <div class="food-selected-rows">
                     {rows}
                 </div>
             ) : (
@@ -326,9 +324,9 @@ const FoodRow = ({ data, suggestion, removeFood, increaseQuantity, decreaseQuant
         <div className="food-row">
             <h3>{data.name}</h3>
             <div className="btn-close" onClick={handleClose}>Remove</div>
-            <div className="actions">
-                <div onClick={handleIncrease}>Increase</div>
-                <div onClick={handleDecrease}>Decrease</div>
+            <div className="qty-actions">
+                <div onClick={handleIncrease} className="qty-btn">+</div>
+                <div onClick={handleDecrease} className="qty-btn">-</div>
             </div>
             <div className="content">
                 <div className="price">

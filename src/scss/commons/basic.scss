@@ -18,3 +18,16 @@ h3 {
         color: grey;
     }
 }
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: $highlight-color;
+    padding: 10px 20px;
+
+    &:hover {
+        color: white;
+        background-color: $primary-color;
+    }
+}

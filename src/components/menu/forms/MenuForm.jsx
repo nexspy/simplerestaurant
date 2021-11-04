@@ -129,12 +129,13 @@ const MenuForm = () => {
 
             <form onSubmit={handleSubmit}>
                 <div className="form-item">
-                    <input type="text" placeholder="name" value={name} onChange={handleName}/>
+                    <label htmlFor="txt-name">Name</label>
+                    <input id="txt-name" type="text" placeholder="name" value={name} onChange={handleName}/>
                 </div>
 
-                <div className="form-item">
-                    <input type="checkbox" id="cb-status" name="cb-status" checked={status}  onChange={onStatusChanged} />
+                <div className="form-item form-checkbox">
                     <label htmlFor="cb-status">Status</label>
+                    <input type="checkbox" id="cb-status" name="cb-status" checked={status}  onChange={onStatusChanged} />
                 </div>
 
                 <div className="form-item">

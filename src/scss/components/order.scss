@@ -50,12 +50,17 @@
     }
 }
 
+.food-selected-rows {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+}
+
 .food-row {
     position: relative;
 
     .btn-close {
         position: absolute;
-        top: 10px;
+        top: 0px;
         right: 0px;
         cursor: pointer;
         border: 1px solid red;
@@ -72,4 +77,38 @@
             column-gap: 20px;
         }
     }
+
+    .qty-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0px;
+    
+        .qty-btn {
+            cursor: pointer;
+            display: block;
+            border: 1px solid $primary-color;
+            padding: 5px 12px;
+
+            &:hover {
+                background-color: $primary-color;
+                color: white;
+            }
+        }
+    }
+}
+
+.form-food-adder {
+    display: flex;
+    justify-content: flex-start;
+
+    input {
+        width: 100px;
+    }
+
+    select {
+        -webkit-appearance: initial;
+        padding: 10px;
+    }
+
 }

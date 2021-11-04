@@ -12,7 +12,7 @@ const FoodManager = () => {
     const [foods, setFoods] = useState([]);
     const [action, setAction] = useState('action_menu_add');
     const [foodSelectedList, setFoodSelectedList] = useState([]);
-    const [showMenus, setShowMenus] = useState(true);
+    const [showMenus, setShowMenus] = useState(false);
     const [menuSuggestion, setMenuSuggestion] = useState([]);
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(0);
@@ -111,7 +111,7 @@ const FoodManager = () => {
             <FoodSearch handleSearchChange={handleSearchChange} />
 
             <select name="sel-bulk-option" onChange={handleBulkChange}>
-                <option value="action_menu_add">Add to menu</option>
+                {/* <option value="action_menu_add">Add to menu</option> */}
                 <option value="action_publish">Publish</option>
                 <option value="action_unpublish">Unpublish</option>
             </select>
