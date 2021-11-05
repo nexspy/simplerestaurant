@@ -189,10 +189,28 @@ const OrderForm = (data) => {
             });
     }
 
+    const deleteOrder = () => {
+        const url = URLS.base_url + URLS.order.base + '/' + orderId + '/delete';
+
+        axios.delete(url)
+            .then((res) => {
+                history.push('/order/manage');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         save();
+    }
+
+    const handleDeleteSubmit = (e) => {
+        e.preventDefault();
+
+        deleteOrder();
     }
 
     useEffect(() => {
@@ -244,6 +262,13 @@ const OrderForm = (data) => {
                 <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>
 
                 <button onClick={handleSubmit}>Save</button>
+
+                {order ? (
+                    <button onClick={handleDeleteSubmit}>Delete</button>
+                ) : (
+                    <></>
+                )}
+                
             </form>
         </div>
     )
