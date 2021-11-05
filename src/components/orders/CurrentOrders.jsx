@@ -1,10 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import Masonry from 'react-masonry-css';
 
 import URLS from '../../api/urls';
 import FoodItem from '../foods/food/FoodItem';
 
 const CurrentOrders = () => {
+    let history = useHistory();
     const [orders, setOrders] = useState([]);
 
     const getCurrentOrders = async (req, res) => {
@@ -27,7 +30,9 @@ const CurrentOrders = () => {
             <h2>Current Orders</h2>
 
             <div className="actions">
-                <a href="#">View All</a>
+                <Link to="/order/manage?type=current" className="btn">
+                    View All
+                </Link>
             </div>
 
             <OrderList data={orders} />
@@ -42,9 +47,12 @@ const OrderList = ({ data }) => {
     })
 
     return (
-        <React.Fragment>
+        <Masonry
+            breakpointCols={3}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
             { list }
-        </React.Fragment>
+            </Masonry>
     )
 }
 

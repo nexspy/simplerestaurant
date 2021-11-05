@@ -7,7 +7,7 @@ const MenuList = ({ data }) => {
         return <Menu data={item} key={key} />
     })
     return (
-        <div>
+        <div className="menu-list">
             {list}
         </div>
     )
