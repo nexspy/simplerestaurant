@@ -140,6 +140,13 @@ const OrderForm = (data) => {
         axios.get(url + '/orders/' + orderId + '/detail')
             .then((res) => {
                 if (res.data.success) {
+                    const tempOrder = res.data.order;
+                    setStatus(tempOrder.status);
+                    if (tempOrder.status) {
+                        setCheckedStatus('checked');
+                    } else {
+                        setCheckedStatus('');
+                    }
                     setOrder(res.data.order);
                 }
             })
@@ -189,6 +196,26 @@ const OrderForm = (data) => {
             });
     }
 
+    const updateOrder = () => {
+        // save code
+        var data = {
+            "foods": foodRowsData,
+            "table": table,
+            "status": status,
+        }
+
+        const url = URLS.base_url + URLS.order.base + '/' + orderId + '/update';
+
+        axios.put(url, data)
+            .then((res) => {
+                // redirect
+                history.push('/order/manage');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const deleteOrder = () => {
         const url = URLS.base_url + URLS.order.base + '/' + orderId + '/delete';
 
@@ -204,7 +231,12 @@ const OrderForm = (data) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        save();
+        if (typeof orderId !== 'undefined') {
+            updateOrder();
+        } else {
+            save();
+        }
+        
     }
 
     const handleDeleteSubmit = (e) => {
@@ -226,10 +258,6 @@ const OrderForm = (data) => {
                 setTable(order.table);
             }
             if (typeof order.status !== 'undefined') {
-                setStatus(order.status);    
-        setStatus(order.status);
-                setStatus(order.status);    
-        setStatus(order.status);
                 setStatus(order.status);    
             }
             if (typeof order.foods !== 'undefined') {
