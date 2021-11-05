@@ -17,6 +17,7 @@ const URLS = {
         'base': '/orders',
         'list': '/orders',
         'create': '/orders/create',
+        'current': '/orders/current'
     }
 };
 

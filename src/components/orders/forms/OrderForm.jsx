@@ -13,6 +13,7 @@ const OrderForm = (data) => {
     const [foodList, setFoodList] = useState([]);
     const [foodSuggestion, setFoodSuggestion] = useState([]);
     const [status, setStatus] = useState(true);
+    const [checkedStatus, setCheckedStatus] = useState('');
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(0);
     const [perpage, setPerpage] = useState(default_perpage);
@@ -25,7 +26,13 @@ const OrderForm = (data) => {
     }
 
     const handleStatus = (e) => {
-        setStatus(e.target.checked);
+        const checked = e.target.checked;
+        if (checked) {
+            setCheckedStatus('checked');
+        } else {
+            setCheckedStatus('');
+        }
+        setStatus(checked);
     }
 
     const increaseQuantity = (data) => {
@@ -196,10 +203,20 @@ const OrderForm = (data) => {
     }, []);
 
     useEffect(() => {
-        setTable(order.table);
+        if (typeof order !== 'undefined') {
+            if (typeof order.table !== 'undefined') {
+                setTable(order.table);
+            }
+            if (typeof order.status !== 'undefined') {
+                setStatus(order.status);    
         setStatus(order.status);
-        if (typeof order.foods !== 'undefined') {
-            setFoodRowsData(order.foods)
+                setStatus(order.status);    
+        setStatus(order.status);
+                setStatus(order.status);    
+            }
+            if (typeof order.foods !== 'undefined') {
+                setFoodRowsData(order.foods)
+            }
         }
     }, [ order ])
 
@@ -221,7 +238,7 @@ const OrderForm = (data) => {
 
                 <div className="form-item form-checkbox">
                     <label htmlFor="cb-status">Status</label>
-                    <input type="checkbox" id="cb-status" checked={status} onChange={handleStatus}/>
+                    <input type="checkbox" id="cb-status" checked={checkedStatus} onChange={handleStatus}/>
                 </div>
 
                 <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>
@@ -291,7 +308,7 @@ const FoodRows = ({ data, suggestion, removeFood, increaseQuantity, decreaseQuan
     return (
         <div>
             {data.length ? (
-                <div class="food-selected-rows">
+                <div className="food-selected-rows">
                     {rows}
                 </div>
             ) : (

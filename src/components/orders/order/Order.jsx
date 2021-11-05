@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 
+import FoodItem from '../../foods/food/FoodItem';
+
 const Order = ({ data }) => {
 
     let history = useHistory();
@@ -36,19 +38,6 @@ const Order = ({ data }) => {
     );
 }
 
-/**
- * Single Food Item in the Single Order
- */
-const FoodItem = ({ data }) => {
-    return (
-        <div>
-            <h3>{data.name}</h3>
-            <div className="price-qty">
-                <p>Rs. {data.pricePerItem}</p>
-                <p>Qty: {data.quantity}</p>
-            </div>
-        </div>
-    );
-}
+
 
 export default Order;

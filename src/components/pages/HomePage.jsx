@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import CurrentOrders from '../orders/CurrentOrders';
+
 const HomePage = () => {
     return (
         <div className="page">
@@ -21,14 +23,7 @@ const HomePage = () => {
                     </Link>
                 </nav>
 
-                <div className="block">
-                    <h2>Current Orders</h2>
-
-                    <div className="actions">
-                        <a href="#">View All</a>
-                    </div>
-                </div>
-                
+                <CurrentOrders />
 
             </div>
 
