@@ -66,6 +66,11 @@ const OrderForm = (data) => {
                     for (var k=0; k<temp.length; k++) {
                         if (temp[k].id == foodInRow.id) {
                             temp[k].quantity = updatedQuantity;
+                            if (value === 1) {
+                                temp[k].total += foodInRow.pricePerItem;
+                            } else {
+                                temp[k].total -= foodInRow.pricePerItem;
+                            }
                         }
                     }
                     setFoodRowsData(temp);
@@ -98,6 +103,7 @@ const OrderForm = (data) => {
                 for (var k=0; k<temp.length; k++) {
                     if (temp[k].id == foodInRow.id) {
                         temp[k].quantity = updatedQuantity;
+                        temp[k].total += foodInRow.pricePerItem;
                     }
                 }
                 setFoodRowsData(temp);
