@@ -28,6 +28,10 @@ input {
 .form-item {
     margin-bottom: 10px;
 
+    &.form-item-hidden {
+        display: none;
+    }
+
     &.form-checkbox {
         display: flex;
         flex-direction: row-reverse;

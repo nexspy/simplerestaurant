@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReactTags from 'react-tag-autocomplete';
 
 import URLS from '../../../api/urls';
+import userEvent from '@testing-library/user-event';
 
 const OrderForm = (data) => {
     let history = useHistory();
@@ -20,6 +21,7 @@ const OrderForm = (data) => {
     const [table, setTable] = useState('');
     const reactTags = React.createRef();
     const [foodRowsData, setFoodRowsData] = useState([]);
+    const [grandTotal, setGrandTotal] = useState(0);
     
     const handleTable = (e) => {
         setTable(e.target.value);
@@ -270,7 +272,16 @@ const OrderForm = (data) => {
                 setFoodRowsData(order.foods)
             }
         }
-    }, [ order ])
+    }, [ order ]);
+
+    useEffect(() => {
+        console.log(foodRowsData);
+        var total = 0;
+        foodRowsData.map((item) => {
+            total += item.total;
+        });
+        setGrandTotal(total);
+    }, [ foodRowsData ]);
 
     return (
         <div className="container">
@@ -283,7 +294,7 @@ const OrderForm = (data) => {
             </nav>
 
             <form onSubmit={handleSubmit}>
-                <div className="form-item">
+                <div className="form-item form-item-hidden">
                     <label htmlFor="txt-table">Table</label>
                     <input type="text" id="txt-table" value={table} onChange={handleTable}/>
                 </div>
@@ -294,6 +305,8 @@ const OrderForm = (data) => {
                 </div>
 
                 <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>
+
+                <div className="form-item totaling-final">Rs. {grandTotal}</div>
 
                 <button onClick={handleSubmit}>Save</button>
 

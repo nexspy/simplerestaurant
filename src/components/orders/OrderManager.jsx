@@ -30,7 +30,7 @@ const OrderManager = () => {
                 tempOrder.total = 0;
                 tempOrder.foods.map((food) => {
                     var item = JSON.parse(JSON.stringify(food));
-                    item.id = food._id;
+                    item.id = tempOrder._id;
                     delete item._id;
                     item.total += food.total;
                     item.date = order.date;
