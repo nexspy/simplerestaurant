@@ -12,9 +12,15 @@ const OrderManager = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [orders, setOrders] = useState([]);
     const [exportOrders, setExportOrders] = useState([]);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     const getOrders = () => {
-        const url = URLS.base_url + URLS.order.base;
+        var url = URLS.base_url + URLS.order.base;
+
+        if (startDate.length && endDate.length) {
+            url += `?startDate=${startDate} 00:00:00&endDate=${endDate} 23:59:59`;
+        }
 
         axios.get(url)
             .then((res) => {
@@ -45,12 +51,17 @@ const OrderManager = () => {
     const dateChanged = (from, to) => {
         console.log('date was changed ' + from + ' ' + to);
 
-        // fetch orders using date filter
+        setStartDate(from);
+        setEndDate(to);
     }
 
     useEffect(() => {
         getOrders();
     }, []);
+
+    useEffect(() => {
+        getOrders();
+    }, [startDate, endDate]);
 
     useEffect(() => {
         if (orders.length) {
