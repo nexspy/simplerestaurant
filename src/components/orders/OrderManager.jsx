@@ -5,6 +5,7 @@ import { CSVLink, CSVDownload } from "react-csv";
 
 import URLS from '../../api/urls';
 import OrderList from './OrderList';
+import DateRangeOrder from './forms/DateRangeOrder';
 
 const OrderManager = () => {
 
@@ -41,6 +42,12 @@ const OrderManager = () => {
         return tempOrders;
     }
 
+    const dateChanged = (from, to) => {
+        console.log('date was changed ' + from + ' ' + to);
+
+        // fetch orders using date filter
+    }
+
     useEffect(() => {
         getOrders();
     }, []);
@@ -49,7 +56,6 @@ const OrderManager = () => {
         if (orders.length) {
             var tempOrders = convertToTransaction();
             setExportOrders(tempOrders);
-            console.log(tempOrders);
         }
     }, [orders]);
 
@@ -62,11 +68,16 @@ const OrderManager = () => {
             ) : (
                 <div>
                     <div className="block">
-                        <CSVLink 
-                            data={exportOrders}
-                            filename={ "report-" + Date.now() + ".csv"}
-                        >Export as CSV</CSVLink>
+                        <div className="btn-export">
+                            <CSVLink 
+                                data={exportOrders}
+                                filename={ "report-" + Date.now() + ".csv"}
+                            >Export as CSV</CSVLink>
+                        </div>
+
+                        <DateRangeOrder dateChanged={dateChanged} />
                     </div>
+
                     <OrderList data={orders} />    
                 </div>
             )}

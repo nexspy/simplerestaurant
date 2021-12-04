@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import CurrentOrders from '../orders/CurrentOrders';
 
 const HomePage = () => {
+
+    const [pin, setPin] = useState('');
+
+    useEffect(() => {
+        // 
+    }, []);
+
     return (
         <div className="page">
             

@@ -112,3 +112,30 @@
     font-size: 32px;
     text-align: right;
 }
+
+.order-manager-wrapper {
+    .btn-export {
+        width: 150px;
+        margin-bottom: 10px;
+    }
+
+    .block {
+        label {
+            padding-bottom: 10px;
+            display: block;
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+    
+    }
+    
+}
+
+.filter-date-wrapper {
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    column-gap: 10px;
+}
