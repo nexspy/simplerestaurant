@@ -12,6 +12,9 @@ const URLS = {
         'base': '/foods',
         'list': '/foods',
         'create': '/foods/create',
+        'publish': '/foods/action/publish',
+        'unpublish': '/foods/action/unpublish',
+        'delete': '/foods/action/delete',
     },
     'order': {
         'base': '/orders',

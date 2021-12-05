@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import URLS from '../../api/urls.js';
@@ -8,9 +9,10 @@ import MenuSuggestion from './MenuSuggestion';
 import FoodList from './FoodList.jsx';
 
 const FoodManager = () => {
+    const history = useHistory();
     const default_perpage = 5;
     const [foods, setFoods] = useState([]);
-    const [action, setAction] = useState('action_menu_add');
+    const [action, setAction] = useState('action_publish');
     const [foodSelectedList, setFoodSelectedList] = useState([]);
     const [showMenus, setShowMenus] = useState(false);
     const [menuSuggestion, setMenuSuggestion] = useState([]);
@@ -51,22 +53,112 @@ const FoodManager = () => {
         var temp = [];
         if (checked) {
             // add to list
+            food.isSelected = true;
             temp = [...foodSelectedList, food];
         } else {
             // remove from list
             for (var i=0; i<foodSelectedList.length; i++) {
                 if (foodSelectedList[i]._id !== food._id) {
                     temp.push(foodSelectedList[i]);   
+                } else {
+                    foodSelectedList[i].isSelected = false;
                 }
             }
         }
         setFoodSelectedList(temp);
-        console.log(temp);
     }
 
-    const addFoodToMenu = () => {
-        // add the food item in foodSelectedList to menu
-        console.log(foodSelectedList)
+    /**
+     * Action : publish foods
+     * @param {array} ids 
+     */
+    const actionPublishFoods = (ids) => {
+        const url = URLS.base_url + URLS.food.publish;
+
+        axios.post(url, {
+                ids: ids
+            }).then(res => {
+                setFoodSelectedList([]);
+                foods.map((food) => {
+                    food.isSelected = false;
+                });
+                var temp = [...foods];
+                setFoods(temp);
+                
+                if (res.success) {
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+    }
+
+    /**
+     * Action : unpublish foods
+     * @param {array} ids 
+     */
+     const actionUnpublishFoods = (ids) => {
+        const url = URLS.base_url + URLS.food.unpublish;
+
+        axios.post(url, {
+                ids: ids
+            }).then(res => {
+                setFoodSelectedList([]);
+                foods.map((food) => {
+                    food.isSelected = false;
+                });
+                var temp = [...foods];
+                setFoods(temp);
+                
+                if (res.success) {
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+    }
+
+    /**
+     * Action : delete foods
+     * @param {array} ids 
+     */
+     const actionDeleteFoods = (ids) => {
+        const url = URLS.base_url + URLS.food.delete;
+
+        axios.post(url, {
+                ids: ids
+            }).then(res => {
+                history.push('/');
+            }).catch(err => {
+                console.log(err);
+            });
+    }
+
+    const applyAction = () => {
+        // apply action to the selected foods
+        if (foodSelectedList.length > 0) {
+            var ids = [];
+            foodSelectedList.map((food) => {
+                ids.push(food._id);
+            });
+
+            if (ids.length) {
+                switch (action) {
+                    case 'action_publish':
+                        // publish
+                        actionPublishFoods(ids);
+                        break;
+                    case 'action_unpublish':
+                        // unpublish
+                        actionUnpublishFoods(ids);
+                        break;
+                    case 'action_delete':
+                        // delete
+                        actionDeleteFoods(ids);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     const getMenus = () => {
@@ -86,6 +178,9 @@ const FoodManager = () => {
         
         axios.get(url)
             .then((res) => {
+                res.data.foods.map((food) => {
+                    food.isSelected = false;
+                });
                 setFoods(res.data.foods);
                 setLoading(false);
             })
@@ -114,6 +209,7 @@ const FoodManager = () => {
                 {/* <option value="action_menu_add">Add to menu</option> */}
                 <option value="action_publish">Publish</option>
                 <option value="action_unpublish">Unpublish</option>
+                <option value="action_delete">Delete</option>
             </select>
 
             {showMenus && menuSuggestion.length ? 
@@ -121,7 +217,7 @@ const FoodManager = () => {
                 : <></>
             }
 
-            <button onClick={addFoodToMenu}>Apply</button>
+            <button onClick={applyAction}>Apply</button>
 
             {loading ? (
                 <p>loading...</p>
