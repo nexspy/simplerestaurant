@@ -30,7 +30,7 @@ const Order = ({ data }) => {
             </div>
             <h3>{orderDate}</h3>
             {foodList}
-            <p className="order-total">Total: Rs. {total}</p>
+            <p className="order-total">Total: $ {total}</p>
             <div className="status-wrapper">
                 <p className={"order-status status-" + statusClass}>{status}</p>
             </div>

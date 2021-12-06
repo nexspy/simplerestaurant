@@ -306,7 +306,7 @@ const OrderForm = (data) => {
 
                 <FoodSelector data={foodRowsData} suggestion={foodSuggestion} addFood={addFood} removeFood={removeFood} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>
 
-                <div className="form-item totaling-final">Rs. {grandTotal}</div>
+                <div className="form-item totaling-final">$ {grandTotal}</div>
 
                 <button onClick={handleSubmit}>Save</button>
 
@@ -419,11 +419,11 @@ const FoodRow = ({ data, suggestion, removeFood, increaseQuantity, decreaseQuant
             </div>
             <div className="content">
                 <div className="price">
-                    <p>Price: Rs. {data.pricePerItem}</p>
+                    <p>Price: $ {data.pricePerItem}</p>
                 </div>
                 <div className="totaling">
                     <p>Qty. {data.quantity}</p>
-                    <p>Total: Rs. {data.total}</p>
+                    <p>Total: $ {data.total}</p>
                 </div>
             </div>
         </div>

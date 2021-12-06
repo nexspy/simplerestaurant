@@ -19,7 +19,7 @@ const Food = ({ data, foodSelected}) => {
 
     return (
         <div className="food box" onClick={selectFood}>
-            <h3>{data.name} - <span>Rs.{data.price}</span></h3>
+            <h3>{data.name} - <span>$ {data.price}</span></h3>
             <input type="checkbox" checked={data.isSelected} onChange={handleChange} />
         </div>
     )
