@@ -31,6 +31,7 @@ function App() {
       {/* Food paths */}
       <Route path="/food/manage" exact component={FoodManagePage} />
       <Route path="/food/create" exact component={FoodForm} />
+      <Route path="/food/:foodId/edit" exact component={FoodForm} />
 
       {/* Order paths */}
       <Route path="/order/manage" component={OrderManagePage} />

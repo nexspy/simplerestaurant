@@ -68,6 +68,10 @@ const FoodManager = () => {
         setFoodSelectedList(temp);
     }
 
+    const foodEdited = (food) => {
+        history.push('/food/' + food._id + '/edit');
+    }
+
     /**
      * Action : publish foods
      * @param {array} ids 
@@ -222,7 +226,7 @@ const FoodManager = () => {
             {loading ? (
                 <p>loading...</p>
             ): (
-                <FoodList data={foods} foodSelected={foodSelected} />
+                <FoodList data={foods} foodSelected={foodSelected} foodEdited={foodEdited} />
             )}
 
             <div className="pagination">

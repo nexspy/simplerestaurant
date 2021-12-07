@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Food = ({ data, foodSelected}) => {
+const Food = ({ data, foodSelected, foodEdited}) => {
     const [isSelected, setIsSelected] = useState(data.isSelected);
 
     const handleChange = (e) => {
@@ -13,12 +13,19 @@ const Food = ({ data, foodSelected}) => {
         foodSelected(data, temp);
     }
 
+    const editFood = (e) => {
+        e.stopPropagation();
+
+        foodEdited(data);
+    }
+
     useEffect(() => {
         setIsSelected(data.isSelected);
     }, [data.isSelected]);
 
     return (
         <div className="food box" onClick={selectFood}>
+            <div onClick={editFood}>Edit</div>
             <h3>{data.name} - <span>$ {data.price}</span></h3>
             <input type="checkbox" checked={data.isSelected} onChange={handleChange} />
         </div>

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import URLS from '../../../api/urls';
 
-const FoodForm = () => {
+const FoodForm = (data) => {
     let history = useHistory();
     
+    const foodId = data.match.params.foodId;
+    const [food, setFood] = useState(false);
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [subCategory, setSubCategory] = useState('');
@@ -42,6 +44,26 @@ const FoodForm = () => {
         setIsVegeterian(e.target.checked);
     };
 
+    const getFood = () => {
+        const url = URLS.base_url + URLS.food.base + '/' + foodId + '/detail';
+        
+        axios.get(url)
+            .then((res) => {
+                if (res.data.success) {
+                    setFood(res.data.food);
+                    setName(res.data.food.name);
+                    setCategory(res.data.food.category);
+                    setSubCategory(res.data.food.subCategory);
+                    setPrice(res.data.food.price);
+                    setIsVegeterian(res.data.food.veg);
+                    setStatus(res.data.food.status);
+                }
+            })
+            .catch((error) => {
+                //
+            });
+    }
+
     const saveFood = () => {
         var data = {
             "name": name,
@@ -66,18 +88,52 @@ const FoodForm = () => {
             });
     }
 
+    const updateFood = () => {
+        const url = URLS.base_url + URLS.food.base + '/' + foodId + '/update';
+        var data = {
+            'name': name,
+            'category': category,
+            'subCategory': subCategory,
+            'price': price,
+            'veg': isVegeterian,
+            'status': status
+        };
+
+        axios.put(url, data)
+            .then((res) => {
+                // redirect
+                history.push('/food/manage');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log('name : ' + name);
-
-        saveFood();
+        if (typeof foodId !== 'undefined') {
+            updateFood();
+        } else {
+            saveFood();
+        }
+        
     }
+
+    useEffect(() => {
+        if (typeof foodId !== 'undefined') {
+            getFood();
+        }
+    }, []);
 
     return (
         <div className="page container">
 
-            <h1>Create Food Item</h1>
+            {foodId ? (
+                <h1>Edit Food Item</h1>
+            ) : (
+                <h1>Create Food Item</h1>
+            )}
 
             <nav>
                 <Link to={`/food/manage`}>

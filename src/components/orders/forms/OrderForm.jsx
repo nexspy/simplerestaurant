@@ -285,7 +285,12 @@ const OrderForm = (data) => {
 
     return (
         <div className="container">
-            <h1>Create Order</h1>
+
+            {orderId ? (
+                <h1>Edit Order</h1>
+            ) : (
+                <h1>Create Order</h1>
+            ) }
 
             <nav>
                 <Link to={`/order/manage`}>
