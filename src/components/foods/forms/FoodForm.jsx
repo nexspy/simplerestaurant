@@ -10,6 +10,7 @@ const FoodForm = (data) => {
     const foodId = data.match.params.foodId;
     const [food, setFood] = useState(false);
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [subCategory, setSubCategory] = useState('');
     const [price, setPrice] = useState(100);
@@ -19,6 +20,10 @@ const FoodForm = (data) => {
     const handleName = (e) => {
         setName(e.target.value);
     };
+
+    const handleDescription = (e) => {
+        setDescription(e.target.value);
+    }
 
     const handleCategory = (e) => {
         setCategory(e.target.value);
@@ -52,6 +57,7 @@ const FoodForm = (data) => {
                 if (res.data.success) {
                     setFood(res.data.food);
                     setName(res.data.food.name);
+                    setDescription(res.data.food.description);
                     setCategory(res.data.food.category);
                     setSubCategory(res.data.food.subCategory);
                     setPrice(res.data.food.price);
@@ -67,6 +73,7 @@ const FoodForm = (data) => {
     const saveFood = () => {
         var data = {
             "name": name,
+            "description": description,
             "category": category,
             "subCategory": subCategory,
             "price": price,
@@ -92,6 +99,7 @@ const FoodForm = (data) => {
         const url = URLS.base_url + URLS.food.base + '/' + foodId + '/update';
         var data = {
             'name': name,
+            'description': description,
             'category': category,
             'subCategory': subCategory,
             'price': price,
@@ -145,6 +153,11 @@ const FoodForm = (data) => {
                 <div className="form-item">
                     <label htmlFor="txt-name">Name</label>
                     <input id="txt-name" type="text" placeholder="name" value={name} onChange={handleName} />
+                </div>
+                <div className="form-item">
+                    <label htmlFor="txt-description">Description</label>
+                    <textarea id="txt-description" placeholder="description" value={description} onChange={handleDescription}>
+                    </textarea>
                 </div>
                 <div className="form-item">
                     <label htmlFor="txt-category">Category</label>
