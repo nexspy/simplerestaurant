@@ -6,6 +6,8 @@ import HomePage from './components/pages/HomePage';
 import FoodManagePage from './components/pages/FoodManagePage';
 import MenuManagePage from './components/pages/MenuManagePage';
 
+import FoodStats from './components/statistics/FoodStats';
+
 import MenuForm from './components/menu/forms/MenuForm';
 import MenuView from './components/menu/menu/MenuView';
 import MenuEditForm from './components/menu/forms/MenuEditForm';
@@ -20,6 +22,9 @@ function App() {
   return (
     <Router>
       <Route path="/" exact component={HomePage} />
+
+      {/* Statistics */}
+      <Route path="/statistics/food" exact component={FoodStats} />
 
       {/* Menu path */}
       <Route path="/menu/manage" component={MenuManagePage} />

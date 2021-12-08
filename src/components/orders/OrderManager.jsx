@@ -49,8 +49,6 @@ const OrderManager = () => {
     }
 
     const dateChanged = (from, to) => {
-        console.log('date was changed ' + from + ' ' + to);
-
         setStartDate(from);
         setEndDate(to);
     }

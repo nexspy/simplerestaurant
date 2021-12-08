@@ -22,6 +22,9 @@ const HomePage = () => {
                     <Link to={`/menu/manage`}>
                         Menu
                     </Link>
+                    <Link to={`/statistics/food`}>
+                        Statistics Food
+                    </Link>
                     <Link to={`/food/manage`}>
                         Food Items
                     </Link>
